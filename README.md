@@ -61,6 +61,21 @@ The pie diagram shows that around 86% of the Work activities are marked as "Not 
 
 ## Bivariate Analysis
 
+I will perform bivariate analysis on the time of report column and the categorical activity columns. I will perform 3 bivariate analysis in total, each showing the proportion of of time sections for one of each of "Partying", "Working" and "Sleeping". For convinience and simplicity of interpretation, I will combine the results of the 3 bivarate analysis into 1 graph and analyze them together to observe interesting patterns and draw useful conclusions.
+
+<iframe
+  src="assets/bi_prop_time_dis.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
+For "Working", we see that most of the working activities happen during 12-18 or 6-12, showing the healthy working patterns of most of the users in UCSD. <br>
+For "Sleeping", we see that around 66% of the sleeping reports shows sleeping during 0-6, which is a normal sleeping time. However, it is surprising that around 20% of the sleeping reports happens during 6-12, more than what is reported to be during 18-24, which shows a late sleep, late wake pattern among UCSD users. <br>
+For "Partying", we see that 75% of the partying activities happen during 18-24, instead of 0-6, which is what most night clubs are the most popular. This shows that UCSD students are less into parties that happen late at night.<br>
+
+Together, we see a clear split of time of report of the 3 categories. Only 6-12 is a time period with a pretty mixed types of activities done. This shows a clear pattern of activities of the users during times of day, which can be useful to draw conclusions.
+
 ## Interesting Aggregates
 
 # Assessment of Missingness
