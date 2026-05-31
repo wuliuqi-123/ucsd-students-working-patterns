@@ -17,7 +17,31 @@ The whole dataset containing information about all 60 users has 377346 rows and 
 
 # Data Cleaning and Exploratory Data Analysis
 
+## Data Cleaning
 
+To make sure that my data only contains columns I needed, I first filtered and kept only the columns described in the Introduction section along with the user_id column, which will be important for later analyzing each user's activity patterns. After filtering, there are two steps that I conducted to make sure my dataset is ready for analysis and hypothesis testing related to my investigation question.
+
+1. Filling in all the missing values with imputation:
+Since all these columns that I'm interested in are self-reported labels other than the time_of_report, there were plenty of missing values in all these labels. These missing values can happen due to various reasons, such as the user forgetting to report, the user was not doing that activity and decided not to report 0, or simply the device that the user uses is out of battery. Because this is just a first stage cleaning, for simplicity I will assume that all missing values occur because the user was not doing that activity at that time, so I imputed 0 into the corresponding cell.
+
+2. Grouping information together based on categories:
+Since I'm interested in whether the user is working/partying/sleeping or not, I decided to create two new columns "Working" and "Partying" which contains true or false, based on if any of the working labels or partying labels were self-reported to be true for that row. Since all of the activities that I'm interested in are parallel activities, meaning that a user can only be doing one at a time, I've also created two new columns "Work" and "Party" that contains the actual event the user is doing if "Working" or "Partying" is true, and contains "Not_Working" or "Not_Partying" if "Working" or "Partying" is False. This way I've kept the raw data of what actual activities the user is doing, while making the information a lot more interpretable and clean. I've also cleaned the time of report labels into 1 column that contains the time range of the report.
+
+Below is the head of my cleaned_df Data Frame:
+
+| user_id     						  | Time_of_report  | Sleeping    | Working	| Work        | Partying    | Party       |
+| -------------------------			  | --------------- | ----------- | --------| ----------- | ----------- | ----------- |
+| A7599A50-24AE-46A6-8EA6-2576F1011D81| 12-18			| False		  | True    | IN_A_MEETING| False       | Not_Partying|
+| A7599A50-24AE-46A6-8EA6-2576F1011D81| 12-18        	| False 	  | True    | IN_A_MEETING| False       | Not_Partying|
+| A7599A50-24AE-46A6-8EA6-2576F1011D81| 12-18        	| False 	  | True    | IN_A_MEETING| False       | Not_Partying|
+| A7599A50-24AE-46A6-8EA6-2576F1011D81| 12-18        	| False 	  | True    | IN_A_MEETING| False       | Not_Partying|
+| A7599A50-24AE-46A6-8EA6-2576F1011D81| 12-18        	| False 	  | True    | IN_A_MEETING| False       | Not_Partying|
+
+## Univariate Analysis
+
+## Bivariate Analysis
+
+## Interesting Aggregates
 
 # Assessment of Missingness
 
