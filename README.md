@@ -78,6 +78,14 @@ Together, we see a clear split of time of report of the 3 categories. Only 6-12 
 
 ## Interesting Aggregates
 
+Below are some interesting aggregates that can be done with the cleaned_df:
+<iframe
+  src="assets/interesting_agg_table.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
+
 # Assessment of Missingness
 
 # Hypothesis Testing
