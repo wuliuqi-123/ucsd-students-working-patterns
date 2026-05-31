@@ -48,7 +48,7 @@ I will perform univariate analysis on the "Party" and "Work" column, observing a
   height="600"
   frameborder="0"
 ></iframe>
-The pie diagram 
+The pie diagram shows that more than 99% of the Party activities are marked as "Not Partying", meaning either the data was reported 0 or missing among all 3 partying labels in the category. This shows a signal that the data about Party can be unreliable as the sample size is so small, it questions whether useful conclusions can be drawn out of such a small sameple size. Note that it is possible to deselect the "Not Paryting" section by clicking on the legends of the graph, and see that drinking alcohol has the largest proportion out of the 3 partying activities.
 
 ### Univariate Analysis of "Work"
 <iframe
@@ -57,6 +57,7 @@ The pie diagram
   height="600"
   frameborder="0"
 ></iframe>
+The pie diagram shows that around 86% of the Work activities are marked as "Not Working", meaning either the data was reported 0 or missing among all 4 working labels in the category. Though it still show a small sample size in proportions, but recognizing that we have over 370,000 rows in the dataset, these information should give me some reliability to draw useful conclusions. Note that other than "Not Working", "Computer Work" is the activity that has the largest propotion. This shows that most users in this test have lots of computer work to do, showing some working patterns related to UCSD being such a large engineering school.
 
 ## Bivariate Analysis
 
