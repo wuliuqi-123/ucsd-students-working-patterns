@@ -39,6 +39,18 @@ Below is the head of my cleaned_df Data Frame:
 
 ## Univariate Analysis
 
+I will perform univariate analysis on the "Party" and "Work" column, observing and analyzing the proportion of each activity in each category.
+
+### Univariate Analysis of "Party"
+
+### Univariate Analysis of "Work"
+<iframe
+  src="Assets/uni_work_dis.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
+
 ## Bivariate Analysis
 
 ## Interesting Aggregates
