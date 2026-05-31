@@ -32,7 +32,7 @@ Below is the head of my cleaned_df Data Frame:
 <iframe
   src="assets/cleaned_df_table.html"
   width="600"
-  height="600"
+  height="500"
   frameborder="0">
 </iframe>
 
@@ -44,7 +44,7 @@ I will perform univariate analysis on the "Party" and "Work" column, observing a
 <iframe
   src="assets/uni_party_dis.html"
   width="600"
-  height="600"
+  height="500"
   frameborder="0"
 ></iframe>
 The pie diagram shows that more than 99% of the Party activities are marked as "Not Partying", meaning either the data was reported 0 or missing among all 3 partying labels in the category. This shows a signal that the data about Party can be unreliable as the sample size is so small, it questions whether useful conclusions can be drawn out of such a small sameple size. Note that it is possible to deselect the "Not Paryting" section by clicking on the legends of the graph, and see that drinking alcohol has the largest proportion out of the 3 partying activities.
@@ -53,7 +53,7 @@ The pie diagram shows that more than 99% of the Party activities are marked as "
 <iframe
   src="assets/uni_work_dis.html"
   width="600"
-  height="600"
+  height="500"
   frameborder="0"
 ></iframe>
 The pie diagram shows that around 86% of the Work activities are marked as "Not Working", meaning either the data was reported 0 or missing among all 4 working labels in the category. Though it still show a small sample size in proportions, but recognizing that we have over 370,000 rows in the dataset, these information should give me some reliability to draw useful conclusions. Note that other than "Not Working", "Computer Work" is the activity that has the largest propotion. This shows that most users in this test have lots of computer work to do, showing some working patterns related to UCSD being such a large engineering school.
@@ -65,7 +65,7 @@ I will perform bivariate analysis on the time of report column and the categoric
 <iframe
   src="assets/bi_prop_time_dis.html"
   width="600"
-  height="600"
+  height="500"
   frameborder="0"
 ></iframe>
 
@@ -80,8 +80,8 @@ Together, we see a clear split of time of report of the 3 categories. Only 6-12 
 Below are some interesting aggregates that can be done with the cleaned_df:
 <iframe
   src="assets/interesting_agg_table.html"
-  width="600"
-  height="600"
+  width="650"
+  height="200"
   frameborder="0">
 </iframe>
 To better understand the temporal patterns of the data, I grouped observations by time-of-report and computed the mean and total count of sleeping, working, and partying activities. Because the activity variables are binary indicators, their means represent the proportion of reports associated with each activity during a given time period. The results show clear behavioral patterns: sleeping activity is concentrated between midnight and 6 AM, working activity peaks between noon and 6 PM, and partying activity is most common during the evening. These findings suggest that time-of-day is strongly associated with user behavior and support the use of temporal activity features in subsequent predictive modeling.
