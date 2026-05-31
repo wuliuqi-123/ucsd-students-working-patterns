@@ -29,13 +29,12 @@ Since I'm interested in whether the user is working/partying/sleeping or not, I 
 
 Below is the head of my cleaned_df Data Frame:
 
-| user_id     						  | Time_of_report  | Sleeping    | Working	| Work        | Partying    | Party       |
-| -------------------------			  | --------------- | ----------- | --------| ----------- | ----------- | ----------- |
-| A7599A50-24AE-46A6-8EA6-2576F1011D81| 12-18			| False		  | True    | IN_A_MEETING| False       | Not_Partying|
-| A7599A50-24AE-46A6-8EA6-2576F1011D81| 12-18        	| False 	  | True    | IN_A_MEETING| False       | Not_Partying|
-| A7599A50-24AE-46A6-8EA6-2576F1011D81| 12-18        	| False 	  | True    | IN_A_MEETING| False       | Not_Partying|
-| A7599A50-24AE-46A6-8EA6-2576F1011D81| 12-18        	| False 	  | True    | IN_A_MEETING| False       | Not_Partying|
-| A7599A50-24AE-46A6-8EA6-2576F1011D81| 12-18        	| False 	  | True    | IN_A_MEETING| False       | Not_Partying|
+<iframe
+  src="assets/cleaned_df_table.html"
+  width="800"
+  height="600"
+  frameborder="0">
+</iframe>
 
 ## Univariate Analysis
 
@@ -85,6 +84,8 @@ Below are some interesting aggregates that can be done with the cleaned_df:
   height="600"
   frameborder="0">
 </iframe>
+
+To better understand the temporal patterns of the data, I grouped observations by time-of-report and computed the mean and total count of sleeping, working, and partying activities. Because the activity variables are binary indicators, their means represent the proportion of reports associated with each activity during a given time period. The results show clear behavioral patterns: sleeping activity is concentrated between midnight and 6 AM, working activity peaks between noon and 6 PM, and partying activity is most common during the evening. These findings suggest that time-of-day is strongly associated with user behavior and support the use of temporal activity features in subsequent predictive modeling.
 
 # Assessment of Missingness
 
