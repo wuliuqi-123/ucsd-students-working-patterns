@@ -31,7 +31,7 @@ Below is the head of my cleaned_df Data Frame:
 
 <iframe
   src="assets/cleaned_df_table.html"
-  width="800"
+  width="600"
   height="600"
   frameborder="0">
 </iframe>
@@ -43,7 +43,7 @@ I will perform univariate analysis on the "Party" and "Work" column, observing a
 ### Univariate Analysis of "Party"
 <iframe
   src="assets/uni_party_dis.html"
-  width="800"
+  width="600"
   height="600"
   frameborder="0"
 ></iframe>
@@ -52,7 +52,7 @@ The pie diagram shows that more than 99% of the Party activities are marked as "
 ### Univariate Analysis of "Work"
 <iframe
   src="assets/uni_work_dis.html"
-  width="800"
+  width="600"
   height="600"
   frameborder="0"
 ></iframe>
@@ -64,7 +64,7 @@ I will perform bivariate analysis on the time of report column and the categoric
 
 <iframe
   src="assets/bi_prop_time_dis.html"
-  width="800"
+  width="600"
   height="600"
   frameborder="0"
 ></iframe>
@@ -80,11 +80,10 @@ Together, we see a clear split of time of report of the 3 categories. Only 6-12 
 Below are some interesting aggregates that can be done with the cleaned_df:
 <iframe
   src="assets/interesting_agg_table.html"
-  width="800"
+  width="600"
   height="600"
   frameborder="0">
 </iframe>
-
 To better understand the temporal patterns of the data, I grouped observations by time-of-report and computed the mean and total count of sleeping, working, and partying activities. Because the activity variables are binary indicators, their means represent the proportion of reports associated with each activity during a given time period. The results show clear behavioral patterns: sleeping activity is concentrated between midnight and 6 AM, working activity peaks between noon and 6 PM, and partying activity is most common during the evening. These findings suggest that time-of-day is strongly associated with user behavior and support the use of temporal activity features in subsequent predictive modeling.
 
 # Assessment of Missingness
