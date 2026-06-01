@@ -25,14 +25,14 @@ To make sure that my data only contains columns I needed, I first filtered and k
 Since all these columns that I'm interested in are self-reported labels other than the time_of_report, there were plenty of missing values in all these labels. These missing values can happen due to various reasons, such as the user forgetting to report, the user was not doing that activity and decided not to report 0, or simply the device that the user uses is out of battery. Because this is just a first stage cleaning, for simplicity I will assume that all missing values occur because the user was not doing that activity at that time, so I imputed 0 into the corresponding cell.
 
 2. Grouping information together based on categories:
-Since I'm interested in whether the user is working/partying/sleeping or not, I decided to create two new columns "Working" and "Partying" which contains true or false, based on if any of the working labels or partying labels were self-reported to be true for that row. Since all of the activities that I'm interested in are parallel activities, meaning that a user can only be doing one at a time, I've also created two new columns "Work" and "Party" that contains the actual event the user is doing if "Working" or "Partying" is true, and contains "Not_Working" or "Not_Partying" if "Working" or "Partying" is False. This way I've kept the raw data of what actual activities the user is doing, while making the information a lot more interpretable and clean. I've also cleaned the time of report labels into 1 column that contains the time range of the report.
+Since I'm interested in whether the user is working/partying/sleeping or not, I decided to create two new columns "Working" and "Partying" which contains true or false, based on if any of the working labels or partying labels were self-reported to be true for that row. Since all of the activities that I'm interested in are parallel activities, meaning that a user can only be doing one at a time, I've also created two new columns "Work" and "Party" that contains the actual event the user is doing if "Working" or "Partying" is true. The other two possible values in "Work" and "Party" are "MISSING" and "Not_Working/Partying" corresponding to False values in "Working" and "Partying" column. It contains "MISSING" if all the label columns in that category are missing, and otherwise it be "Not_Working/Partying". This way I've kept the raw data of what actual activities the user is doing, while making the information a lot more interpretable and clean. I've also cleaned the time of report labels into 1 column that contains the time range of the report.
 
 Below is the head of my cleaned_df Data Frame:
 
 <iframe
   src="assets/cleaned_df_table.html"
   width="600"
-  height="500"
+  height="550"
   frameborder="0">
 </iframe>
 
@@ -81,14 +81,54 @@ Below are some interesting aggregates that can be done with the cleaned_df:
 <iframe
   src="assets/interesting_agg_table.html"
   width="650"
-  height="200"
+  height="250"
   frameborder="0">
 </iframe>
 To better understand the temporal patterns of the data, I grouped observations by time-of-report and computed the mean and total count of sleeping, working, and partying activities. Because the activity variables are binary indicators, their means represent the proportion of reports associated with each activity during a given time period. The results show clear behavioral patterns: sleeping activity is concentrated between midnight and 6 AM, working activity peaks between noon and 6 PM, and partying activity is most common during the evening. These findings suggest that time-of-day is strongly associated with user behavior and support the use of temporal activity features in subsequent predictive modeling.
 
 # Assessment of Missingness
 
+## NMAR Analysis
+
+There are many missing values in most of my columns other than the time_of_report, as everything else are label information that is self-reported by the user. One column that I believe to be NMAR is the "label: SLEEPING" column. This column is self-reported by the user, and unlike other label columns, a user can't be reporting whether they are sleeping or not while they are asleep. So I would assume that the reported 1s in the sleeping column is reported by the user after they wake up, and they recorded the time that they believe they were asleep. Therefore missingness in this column could've happened because the user forgot to report that they were asleep after they woke up, because they couldn't report it while they were doing it. Therefore the missingness in this column should be independent of any other columns but only be depended on its own value (whether the user was actually sleeping or not).
+
+An additional data I could've obtained to make the sleeping column MAR is "discrete: battery_state: missing" which indicates that the device it out of battery, which means that the user couldn't report whether or not they are sleeping or not, which is another reason that leads to missingness. This way the missingness in "label: sleeping" will be dependent on this column.
+
+## Missingness Dependence Analysis
+
+To analyze missingness dependency, I will focus on the "Work" column, where I've marked out "MISSING" to reports that are missing for all labels in the working category during my data cleaning stage. I will analyze the missingness dependency of "Work" to "Time_of_report" column and the "Partying column".
+
+First I will perform a permutation test on "Work" and "Time_of_report", and see if the missingness in "Work" depends on "Time_of_report"
+
+**Null Hypothesis**: 
+
 # Hypothesis Testing
+
+I Will be testing whether there is linear association between user's average sleeping report time and average working report time. The relevant columns for this test in the "cleaned_df" are \["user_id", "Time_of_report", "Sleeping", "Working"\]. Where I will compute the average report time of each user when "Sleeping" is true and when "Working" is true, and see if there is a linear association.
+
+**Null Hypothesis**: There is no linear association between users’ average sleeping report times and average working report times.
+
+**Alternative Hypothesis**: There is a linear association between users’ average sleeping report times and average working report times.
+
+**Test Statistic**: The correlation coefficient between the users' average sleeping report times and average working report times.
+
+**Significance Level**: 5%
+
+I first computed the observed statistic by grouping the cleaned_df by "user_id", calculated the mean report time separately for when "Sleeping" is true and when "Working" is true, then calculated the correlation coefficient using the OLS estimator. A graph to show the result of the observed statistic is as follow, and the observed statistic is a correlation coefficient of -0.0514 (3 Sig. Fig.)
+<iframe
+  src="assets/observed_corr_hypo_test.html"
+  width="650"
+  height="650"
+  frameborder="0">
+</iframe>
+
+Then I performed a permutation test of 1000 simulations to test my pair of hypothesis, and got a p-value of 0.696. With a significance level of 5%, I would surprisingly fail to reject the null hypothesis and suggest evidence of no association between sleeping and working schedules accross users. The plot below shows the observed statistic compared to the empirical distrubtion of correlations from the permutation test. It shows that the observed statistic lies very close to the center.
+<iframe
+  src="assets/hypo_test_distribution.html"
+  width="650"
+  height="650"
+  frameborder="0">
+</iframe>
 
 # Framing a Prediction Problem
 
