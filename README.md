@@ -132,8 +132,29 @@ Then I performed a permutation test of 1000 simulations to test my pair of hypot
 
 # Framing a Prediction Problem
 
+From the last section, we surprisingly found that evidence suggest that there might be no linear correlation between the users' average sleeping report time and working report time. However, I still believe that there actually is a relationship, but the reason that my hypothesis test suggests no relationship is because there were too many ommited variables that could also affect the average working report time of the user.
+
+To address my question and surprise, I will build a model to predict the users' average working report time given the users' average sleeping report times, average partying report times and average daily activities report times, which will be a regression model. I chose mean_work_time as the response variable because working behavior is one of the most common and meaningful activities in the ExtraSensory dataset, and it is reasonable to investigate whether users' sleeping, partying, and daily routines can help explain their working schedules. To clearly define my prediction problem, I will define the categories "Sleeping", "Working", "Partying" and "Daily Activities" as following:
+
+Sleeping report times is the measure of the average time of sleeping.
+
+Working report times include the reported times of categories including \[LAB_WORK, IN_CLASS, IN_A_MEETING, COMPUTER_WORK\].
+
+Partying report times include the reported times of categories including \[DRINKING__ALCOHOL_, AT_A_PARTY, AT_A_BAR\]
+
+Daily Exercise report times include the reported times of categories including \[COOKING, BATHING_-\_SHOWER, DOING_LAUNDRY, CLEANING, WASHING_DISHES, SURFING_THE_INTERNET, EATING, TOILET\]
+
+I will evalute my model performance from 2 perspective, one evaluating how well my model fits the data that I used to train it using the coefficient of determination (R²). R² measures the proportion of variation in the response variable that is explained by the predictors. The other perspective is evaluating how well my model can predict on unseen data by using a five-fold cross validation method and finding the mean R². Because this is a regression problem, R² is more appropriate than classification metrics such as accuracy, precision, or F1-score.
+
+At prediction time, the model assumes that information about a user's average sleeping, partying, and daily activity reporting times is available, while the user's average working report time is unknown and must be predicted. Therefore, all predictors used in the model would be known before the prediction is made.
+
 # Baseline Model
 
 # Final Model
 
 # Fairness Analysis
+
+
+
+
+
