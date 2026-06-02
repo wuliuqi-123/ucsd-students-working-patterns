@@ -25,7 +25,7 @@ To make sure that my data only contains columns I needed, I first filtered and k
 Since all these columns that I'm interested in are self-reported labels other than the time_of_report, there were plenty of missing values in all these labels. These missing values can happen due to various reasons, such as the user forgetting to report, the user was not doing that activity and decided not to report 0, or simply the device that the user uses is out of battery. Because this is just a first stage cleaning, for simplicity I will assume that all missing values occur because the user was not doing that activity at that time, so I imputed 0 into the corresponding cell.
 
 2. Grouping information together based on categories:
-Since I'm interested in whether the user is working/partying/sleeping or not, I decided to create two new columns "Working" and "Partying" which contains true or false, based on if any of the working labels or partying labels were self-reported to be true for that row. Since all of the activities that I'm interested in are parallel activities, meaning that a user can only be doing one at a time, I've also created two new columns "Work" and "Party" that contains the actual event the user is doing if "Working" or "Partying" is true. The other two possible values in "Work" and "Party" are "MISSING" and "Not_Working/Partying" corresponding to False values in "Working" and "Partying" column. It contains "MISSING" if all the label columns in that category are missing, and otherwise it be "Not_Working/Partying". This way I've kept the raw data of what actual activities the user is doing, while making the information a lot more interpretable and clean. I've also cleaned the time of report labels into 1 column that contains the time range of the report.
+Since I'm interested in whether the user is working/partying/sleeping or not, I decided to create 3 new columns "Sleeping", "Working" and "Partying" which contains true or false, based on if any of the working labels or partying labels were self-reported to be true for that row. Since all of the activities that I'm interested in are parallel activities, meaning that a user can only be doing one at a time, I've also created 3 new columns "Sleep", "Work" and "Party" that contains the actual event the user is doing if "Sleeping" "Working" or "Partying" is true. The other two possible values in these 3 columns are "MISSING" and "Not_Sleeping/Working/Partying" corresponding to False values in "Sleeping", "Working" and "Partying" column. It contains "MISSING" if all the label columns in that category are missing, and otherwise it be "Not_Sleeping/Working/Partying". This way I've kept the raw data of what actual activities the user is doing, while making the information a lot more interpretable and clean. I've also cleaned the time of report labels into 1 column that contains the time range of the report.
 
 Below is the head of my cleaned_df Data Frame:
 
@@ -96,11 +96,45 @@ An additional data I could've obtained to make the sleeping column MAR is "discr
 
 ## Missingness Dependence Analysis
 
-To analyze missingness dependency, I will focus on the "Work" column, where I've marked out "MISSING" to reports that are missing for all labels in the working category during my data cleaning stage. I will analyze the missingness dependency of "Work" to "Time_of_report" column and the "Partying column".
+To analyze missingness dependency, I will focus on the "Party" column, where I've marked out "MISSING" to reports that are missing for all labels in the partying category during my data cleaning stage. I will analyze the missingness dependency of "Party" to "Time_of_report" column and the "Sleep" column. Note that to make the analysis of the "Sleep" column possible, I dropped all the missing values and transmitted all the "Not_Sleeping" and "Sleeping" values to boolean values only for this test.
 
-First I will perform a permutation test on "Work" and "Time_of_report", and see if the missingness in "Work" depends on "Time_of_report"
+### Time of report Missingness
+First I will perform a permutation test on "Party" and "Time_of_report", and see if the missingness in "Party" depends on "Time_of_report"
 
-**Null Hypothesis**: 
+**Null Hypothesis**: The missingness in the "Party" column is independent of the "Time_of_report" column
+
+**Alternative Hypothesis**: The missingness in the "Party" column is dependent of the "Time_of_report" column
+
+**Significance level**: 0.05
+
+**Test statistic**: absolute difference in the mean time of report
+<iframe
+  src="assets/permutation_dis_missingness_time.html"
+  width="650"
+  height="650"
+  frameborder="0">
+</iframe>
+
+After performing a permutation test, we found an observed absolute difference in the mean time of report to be 0.572 and a p-value of 0.0. As shown by the distribution graph, it suggests that our observed statistic is highly unprobable under the null hypothesis. Since the p-vlaue is less than the significant level, we reject the null hypothesis that the missingness in the "Party" column is independent from the "Time_of_report" column. This makes the missingness in the "Party" column MAR when we only have two columns, "Party" and "Time_of_report".
+
+### Sleep Missingness
+Next I will perform a permutation test on "Party" and "Sleep" (With all missing values droped), and see if the missingness in "Party" depends on "Sleep".
+
+**Null Hypothesis**: The missingness in the "Party" column is independent of the "Sleep" column
+
+**Alternative Hypothesis**: The missingness in the "Party" column is dependent of the "Sleep" column
+
+**Significance level**: 0.05
+
+**Test statistic**: absolute difference in the mean sleeping rate
+<iframe
+  src="assets/permutation_dis_missingness_sleep.html"
+  width="650"
+  height="650"
+  frameborder="0">
+</iframe>
+
+After performing a permutation test, we found an observed absolute difference in the mean sleep rate to be around 0.006 and a p-value of about 0.77. As shown by the distribution graph, it suggests that our observed statistic is highly probable under the null hypothesis. Since the p-vlaue is greater than the significant level, we fail to reject the null hypothesis that the missingness in the "Party" column is independent from the "Sleep" column. This makes the missingness in the "Party" column likely NMAR when we only have two columns, "Party" and "Sleep".
 
 # Hypothesis Testing
 
