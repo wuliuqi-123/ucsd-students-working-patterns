@@ -138,7 +138,13 @@ After performing a permutation test, we found an observed absolute difference in
 
 # Hypothesis Testing
 
-I Will be testing whether there is linear association between user's average sleeping report time and average working report time. The relevant columns for this test in the "cleaned_df" are \["user_id", "Time_of_report", "Sleeping", "Working"\]. Where I will compute the average report time of each user when "Sleeping" is true and when "Working" is true, and see if there is a linear association.
+I Will be testing whether there is linear association between user's average sleeping report time and average working report time. The relevant columns for this test in the "cleaned_df" are \["user_id", "Time_of_report", "Sleeping", "Working"\]. Where I will compute the average report time of each user when "Sleeping" is true and when "Working" is true, and see if there is a linear association. Because I'm grouping my cleaned_df, to make my hypothesis testing clearer, I will show the first few rows of the grouped "user_df" for this hypothesis test.
+<iframe
+  src="assets/grouped_user_df_hypo_test.html"
+  width="650"
+  height="300"
+  frameborder="0">
+</iframe>
 
 **Null Hypothesis**: There is no linear association between users’ average sleeping report times and average working report times.
 
