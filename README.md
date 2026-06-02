@@ -196,7 +196,7 @@ In order to implement my Baseline Model, I had to renew my cleaned_df and user_d
 <iframe
   src="assets/updated_cleaned_df_baseline.html"
   width="650"
-  height="250"
+  height="350"
   frameborder="0">
 </iframe>
 
@@ -204,7 +204,7 @@ In order to implement my Baseline Model, I had to renew my cleaned_df and user_d
 <iframe
   src="assets/updated_user_df_baseline.html"
   width="650"
-  height="250"
+  height="650"
   frameborder="0">
 </iframe>
 My baseline model will be a linear regression model using the features mean_sleep_time, mean_party_time and mean_daily_time to predict the mean_working_time of the users. This information can be used by universities (UCSD) to understand students working patterns in a day given their sleeping, entertaining and daily activity time. All 3 features used to predict are quantitative, as they are mean values of time of the day (an integer hour that is assumed to be the starting time of the time_of_report column).
@@ -213,9 +213,70 @@ The baseline model achieved an in-sample R² of approximately 0.40, indicating t
 
 # Final Model
 
+### Introduction of Final Model
+For the final model, I attempted to improve upon my baseline linear regression model by engineering additional features that better describe each user's behavioral patterns.
+
+The baseline model used only the mean times at which a user reported sleeping, partying, and daily activities to predict the user's mean working time. While these features captured when activities tended to occur, they did not describe how frequently the activities occurred or how consistent the user's schedule was.
+
+To address this limitation, I created six additional features:
+
+- sleep_freq – proportion of reports in which the user was sleeping.
+- party_freq – proportion of reports in which the user was partying.
+- daily_freq – proportion of reports in which the user was performing daily activities.
+- sleep_std – standard deviation of sleeping times.
+- party_std – standard deviation of partying times.
+- daily_std – standard deviation of daily activity times.
+
+The frequency features capture how often users engage in particular activities, while the standard deviation features measure schedule consistency. Users with highly regular schedules may have different working patterns than users whose activities occur at highly variable times.
+
+Because many users never performed certain activities, some engineered features contained missing values. Rather than simply replacing it with zeros or removing those users and drastically reducing the dataset size, I used a SimpleImputer with a constant value of -1 to preserve the information that a particular activity never occurred for that user.
+
+I trained a RandomForestRegressor and tuned its hyperparameters using GridSearchCV with 5-fold cross-validation. The hyperparameters searched were:
+
+Number of trees (n_estimators)<br>
+Maximum tree depth (max_depth)<br>
+Minimum samples per leaf (min_samples_leaf)
+
+The best hyperparameter combination found was:
+
+n_estimators = 200<br>
+max_depth = 2<br>
+min_samples_leaf = 4
+
+### Evaluation of Final Model
+The final model achieved:
+
+R² = 0.133
+MAE = 1.796
+RMSE = 2.144
+
+Compared to the baseline model, which achieved a negative R² on unseen test data, the final model produced a positive R² score. This indicates that the final model is able to explain some of the variation in users' working times and performs better than simply predicting the average working time for all users.
+
+Although the improvement is modest, the results suggest that activity frequencies and schedule variability contain useful information about working behavior. The feature importance analysis supports this conclusion.
+
+The most important features were:
+
+daily_freq
+mean_sleep_time
+daily_std
+sleep_freq
+sleep_std
+This suggests that users' daily activity habits and sleeping patterns are more predictive of working times than partying-related variables. In contrast, party_freq and party_std contributed very little to the model's predictions.
+
+Overall, the final model improves upon the baseline by incorporating richer behavioral features and by using a more flexible nonlinear learning algorithm. However, the relatively low R² value indicates that a large amount of variation in working time remains unexplained. This is likely because working behavior is influenced by many factors not captured in the available dataset. Additional features describing location, weekday versus weekend effects, or other contextual information may further improve predictive performance.
+
 # Fairness Analysis
 
+For fairness analysis of my final model, I will assess if my model is fair among high daily activity frequency users and low daily activity frequency users. We can observe from the feature importance plot from the previous section that daily_freq is the most important feature in predicting the mean_work_time of users. This means that different frequencies of doing daily activities amongst users can significantly impact my final model's prediction. Therefore, it is natural that I want to test whether my final model perform worse for users with less frequent daily activity records. I will break down the group of users to high-daily-frequency users and low-daily-frequency users based on the median of the daily frequency column.
 
+**Null Hypothesis**: The model’s RMSE is the same for high-daily-frequency users and low-daily-frequency users. Any difference is due to random chance.
 
+**Alternative Hypothesis**: The model’s RMSE is higher for one group than the other, meaning the model performs worse for that group.
+
+**Significance Level**: 5%
+
+**Test Statistics**: Absolute difference between the RMSE of high-daily-frequency users and low-daily-frequency-users
+
+The observed p-value was 0.411. Using a significance level of α = 0.05, we fail to reject the null hypothesis because the p-value is substantially larger than 0.05. Therefore, we do not find statistically significant evidence that the model's prediction error differs between high-daily-frequency users and low-daily-frequency users. Based on this fairness analysis, the model appears to perform similarly for the two groups with respect to RMSE. While this does not prove that the model is perfectly fair, it suggests that any performance differences observed between the two groups are small enough that they could reasonably be explained by random variation in the data.
 
 
