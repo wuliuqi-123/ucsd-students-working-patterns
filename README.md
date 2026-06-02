@@ -142,7 +142,7 @@ I Will be testing whether there is linear association between user's average sle
 <iframe
   src="assets/grouped_user_df_hypo_test.html"
   width="650"
-  height="300"
+  height="250"
   frameborder="0">
 </iframe>
 
@@ -190,6 +190,23 @@ At prediction time, the model assumes that information about a user's average sl
 
 # Baseline Model
 
+In order to implement my Baseline Model, I had to renew my cleaned_df and user_df showed previously. In order to clarify my process of building the baseline model, I will show the first few rows of the updated cleaned_df and user_df for this baseline model.
+
+### Updated cleaned_df
+<iframe
+  src="assets/updated_cleaned_df_baseline.html"
+  width="650"
+  height="250"
+  frameborder="0">
+</iframe>
+
+### Updated user_df
+<iframe
+  src="assets/updated_user_df_baseline.html"
+  width="650"
+  height="250"
+  frameborder="0">
+</iframe>
 My baseline model will be a linear regression model using the features mean_sleep_time, mean_party_time and mean_daily_time to predict the mean_working_time of the users. This information can be used by universities (UCSD) to understand students working patterns in a day given their sleeping, entertaining and daily activity time. All 3 features used to predict are quantitative, as they are mean values of time of the day (an integer hour that is assumed to be the starting time of the time_of_report column).
 
 The baseline model achieved an in-sample R² of approximately 0.40, indicating that the selected features explain about 40% of the variation in users’ average working times. However, evaluation on unseen data produced substantially lower and often negative R² values. Five-fold cross-validation yielded a mean R² of approximately -3.30, suggesting that the model does not generalize well to new users. This indicates that average sleeping, partying, and daily activity times alone are insufficient predictors of average working time, and that additional features or more sophisticated models may be necessary. I would conclude that my current baseline model is not very good in predicting the target feature using the 3 features I have now. 
