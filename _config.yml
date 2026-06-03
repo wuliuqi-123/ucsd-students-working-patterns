@@ -1,4 +1,4 @@
-remote_theme: pages-themes.github.io/architect/
+remote_theme: pages-themes.github.io/leap-day/
 
 plugins:
   - jekyll-remote-theme
