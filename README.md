@@ -244,7 +244,7 @@ max_depth = 2<br>
 min_samples_leaf = 4
 
 ### Evaluation of Final Model
-The final model achieved:
+By using the best parameters that I got from using a GridSearchCV with 5-fold cross-validation, The final RandomForestRegressor model achieved:
 
 R² = 0.133
 MAE = 1.796
@@ -254,13 +254,19 @@ Compared to the baseline model, which achieved a negative R² on unseen test dat
 
 Although the improvement is modest, the results suggest that activity frequencies and schedule variability contain useful information about working behavior. The feature importance analysis supports this conclusion.
 
-The most important features were:
+<iframe
+  src="assets/importance_of_cols_graph.html"
+  width="650"
+  height="650"
+  frameborder="0">
+</iframe>
+As shown in the graph above, the most important features were:
 
-daily_freq
-mean_sleep_time
-daily_std
-sleep_freq
-sleep_std
+- daily_freq
+- mean_sleep_time
+- daily_std
+- sleep_freq
+- sleep_std
 This suggests that users' daily activity habits and sleeping patterns are more predictive of working times than partying-related variables. In contrast, party_freq and party_std contributed very little to the model's predictions.
 
 Overall, the final model improves upon the baseline by incorporating richer behavioral features and by using a more flexible nonlinear learning algorithm. However, the relatively low R² value indicates that a large amount of variation in working time remains unexplained. This is likely because working behavior is influenced by many factors not captured in the available dataset. Additional features describing location, weekday versus weekend effects, or other contextual information may further improve predictive performance.
@@ -276,6 +282,13 @@ For fairness analysis of my final model, I will assess if my model is fair among
 **Significance Level**: 5%
 
 **Test Statistics**: Absolute difference between the RMSE of high-daily-frequency users and low-daily-frequency-users
+
+<iframe
+  src="assets/fairness_hypo_dis_graph.html"
+  width="650"
+  height="650"
+  frameborder="0">
+</iframe>
 
 The observed p-value was 0.411. Using a significance level of α = 0.05, we fail to reject the null hypothesis because the p-value is substantially larger than 0.05. Therefore, we do not find statistically significant evidence that the model's prediction error differs between high-daily-frequency users and low-daily-frequency users. Based on this fairness analysis, the model appears to perform similarly for the two groups with respect to RMSE. While this does not prove that the model is perfectly fair, it suggests that any performance differences observed between the two groups are small enough that they could reasonably be explained by random variation in the data.
 
